@@ -20,7 +20,9 @@ Check [example/README.md](example/README.md) for more details.
 
 You need to add some udev rules so that mspdebug can access the device.
 
-On NixOS systems, you can copy `msp430-udev.nix` and import it into your `configuration.nix`:
+### NixOS
+
+Copy `msp430-udev.nix` and import it into your `configuration.nix`:
 
 ```nix
 {
@@ -30,11 +32,19 @@ On NixOS systems, you can copy `msp430-udev.nix` and import it into your `config
 }
 ```
 
-On non-NixOS systems, create `/etc/udev/rules.d/61-msp430uif.rules` and add the following lines:
+### non-NixOS
+
+Create `/etc/udev/rules.d/61-msp430uif.rules` and add the following lines:
 
 ```plain
 #TI MSP430UIF
 ATTRS{idVendor}=="2047",ATTRS{idProduct}=="0010",MODE="0666"
 ATTRS{idVendor}=="2047",ATTRS{idProduct}=="0013",MODE="0666"
 ATTRS{idVendor}=="2047",ATTRS{idProduct}=="0203",MODE="0666"
+```
+
+Then, restart the udev service:
+
+```sh
+sudo udevadm control --reload-rules
 ```
