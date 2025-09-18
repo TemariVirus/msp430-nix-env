@@ -19,6 +19,7 @@ chmod +x ./build.sh
 3. Plug in your MSP430F5529 LaunchPad and run:
 
 ```sh
+chmod +x ./run.sh
 ./run.sh
 ```
 
