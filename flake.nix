@@ -70,12 +70,12 @@
       };
     in {
       devShells.x86_64-linux.default = pkgs.mkShell {
-        packages = with pkgs; [ less msp430Gcc msp430Flasher mspdebug ];
+        packages = with pkgs; [ less msp430Gcc msp430Flasher mspdebug pkgs.ncurses5];
         shellHook = ''
           # Use `-I $MSP_INC` to include msp430 headers
           export MSP_INC="${pkgs.lib.makeIncludePath [ msp430GccSupport ]}"
           export LD_LIBRARY_PATH="${
-            pkgs.lib.makeLibraryPath [ msp430Flasher ]
+            pkgs.lib.makeLibraryPath [ msp430Flasher pkgs.ncurses5 ]
           }:$LD_LIBRARY_PATH"
         '';
       };
