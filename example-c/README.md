@@ -1,9 +1,35 @@
-this is not chip-agnostic so if you have a different msp430 then gg lor
+# Example-c
 
-additionally, the run.sh doesn't seem to work to load the thing rightaway. you need to `prog main.elf, run` keyi liao
+This is a minimal example that displays "CANE!" as morse code on an MSP430F5529.
 
-todo: automatic gdb server + attaching setup?
+1. Enter the development environment:
 
-note that the compile flags in `compile.sh` compile with minimimum optimization + debugging symbols, this is so that it's not a fucking headache for me to debug shit
+```sh
+nix develop
+cd example-c  # If you haven't already
+```
 
+2. Build the example:
 
+```sh
+chmod +x ./build.sh
+./build.sh
+```
+
+3. Plug in your MSP430F5529 LaunchPad and run:
+
+```sh
+chmod +x ./run.sh
+./run.sh
+```
+
+mspdebug may not connect properly immediately after plugging in the LaunchPad. Wait a few seconds and try again if it fails.
+
+4. Once mspdebug connects, run:
+
+```plain
+(mspdebug) prog main.bin
+(mspdebug) run
+```
+
+5. The red (P1.0) LEDs should blink in morse code!

@@ -68,16 +68,18 @@
           mv ./dist/libmsp430.so $out/lib/libmsp430.so
         '';
       };
+      libraryPath = pkgs.lib.makeLibraryPath [ msp430GccSupport ];
+      ldLibraryPath = pkgs.lib.makeLibraryPath
+        (with pkgs; [ msp430Flasher libgcc ncurses5 xorg_sys_opengl ]);
     in {
       devShells.x86_64-linux.default = pkgs.mkShell {
         packages = with pkgs; [ less msp430Gcc msp430Flasher mspdebug ];
         shellHook = ''
           # Use `-I $MSP_INC` to include msp430 headers
           export MSP_INC="${pkgs.lib.makeIncludePath [ msp430GccSupport ]}"
-          export LD_LIBRARY_PATH="${
-            pkgs.lib.makeLibraryPath
-            (with pkgs; [ msp430Flasher libgcc ncurses5 xorg_sys_opengl ])
-          }:$LD_LIBRARY_PATH"
+          export MSP_LIB="${pkgs.lib.makeLibraryPath [ msp430GccSupport ]}"
+          export LIBRARY_PATH="${libraryPath}:$LIBRARY_PATH"
+          export LD_LIBRARY_PATH="${ldLibraryPath}:$LD_LIBRARY_PATH"
         '';
       };
     };

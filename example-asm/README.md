@@ -1,4 +1,4 @@
-# Example
+# Example-asm
 
 This is a minimal example that blinks the LEDs on an MSP430F5529.
 
@@ -6,7 +6,7 @@ This is a minimal example that blinks the LEDs on an MSP430F5529.
 
 ```sh
 nix develop
-cd example  # If you haven't already
+cd example-asm  # If you haven't already
 ```
 
 2. Build the example:
